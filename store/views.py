@@ -12,3 +12,17 @@ def listing(request):
     albums = ["<li>{}</li>".format(album['name']) for album in ALBUMS]
     message = """<ul>{}</ul>""".format("\n".join(albums))
     return HttpResponse(message)
+
+"""
+def details(request, album_id):
+    id = int(album_id)
+    detail_album = ALBUMS[id]
+    message = "Artiste : {}. Ecrit par : {}.".format(detail_album['name'], detail_album['artists'])
+    return HttpResponse(message)
+"""
+def details(request, album_id):
+    id = int(album_id) # make sure we have an integer.
+    album = ALBUMS[id] # get the album with its id.
+    artists = " ".join([artist['name'] for artist in album['artists']]) # grab artists name and create a string out of it.
+    message = "Le nom de l'album est {}. Il a été écrit par {}".format(album['name'], artists)
+    return HttpResponse(message)
